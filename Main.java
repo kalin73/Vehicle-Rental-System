@@ -1,6 +1,5 @@
 import business.insurance.CarInsuranceCalc;
 import business.insurance.CargoVanInsuranceCalc;
-import business.insurance.InsuranceCalculator;
 import business.insurance.MotorcycleInsuranceCalc;
 import business.invoice.CarInvoice;
 import business.invoice.CargoVanInvoice;
@@ -9,7 +8,6 @@ import business.invoice.MotorcycleInvoice;
 import business.rental.CarRental;
 import business.rental.CargoVanRental;
 import business.rental.MotorcycleRental;
-import business.rental.VehicleRental;
 import model.client.Client;
 import model.vehicle.Car;
 import model.vehicle.CargoVan;
@@ -17,19 +15,13 @@ import model.vehicle.Motorcycle;
 import model.vehicle.Vehicle;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.util.Locale;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println(getCarInvoice());
         System.out.println(getMotorcycleInvoice());
         System.out.println(getCargoVanInvoice());
-    }
-
-    private static String getFormatedValue(BigDecimal value) {
-        return NumberFormat.getCurrencyInstance(Locale.US).format(value);
     }
 
     public static String getCarInvoice() {
