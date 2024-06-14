@@ -29,12 +29,12 @@ public class CarInvoice extends Invoice {
         invoice.append(super.getInvoice());
 
         if (car.getSafetyRating() > 3 && car.getSafetyRating() <= 5) {
-            invoice.append(String.format("Initial insurance per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateInitialCostPerDay())));
+            invoice.append(String.format("Initial insurance per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceDiscountCalculator.calculateInitialCostPerDay())));
             invoice.append(String.format("Insurance discount per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceDiscountCalculator.calculateDiscountPerDay())));
-            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateTotalCostPerDay())));
+            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceDiscountCalculator.calculateTotalCostPerDay())));
 
         } else {
-            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateTotalCostPerDay())));
+            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceDiscountCalculator.calculateTotalCostPerDay())));
 
         }
         invoice.append(System.lineSeparator());
