@@ -2,7 +2,7 @@ package business.invoice;
 
 import business.insurance.InsuranceCalculator;
 import business.rental.VehicleRental;
-import utils.Utils;
+import utils.CurrencyFormatter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -38,6 +38,8 @@ public abstract class Invoice {
         invoice.append(String.format("Reserved rental days: %d days%n", getVehicleRental().getRentalDays()));
         invoice.append(System.lineSeparator());
         invoice.append(getReturnDateDetails());
+        invoice.append(System.lineSeparator());
+        invoice.append(String.format("Rental cost per day: %s%n", CurrencyFormatter.getFormatedValue(getVehicleRental().getRentalCostPerDay())));
 
         return invoice.toString();
     }
@@ -53,9 +55,9 @@ public abstract class Invoice {
         BigDecimal rent = vehicleRental.getRentalCostPerDay().multiply(BigDecimal.valueOf(vehicleRental.getRentalDays())).subtract(getEarlyReturnRentDiscount());
         BigDecimal insurance = insuranceCalculator.calculateTotalCostPerDay().multiply(BigDecimal.valueOf(rentDuration));
 
-        String totalRent = String.format("Total rent: %s%n", Utils.getFormatedValue(rent));
-        String totalInsurance = String.format("Total insurance: %s%n", Utils.getFormatedValue(insurance));
-        String total = String.format("Total: %s%n", Utils.getFormatedValue(rent.add(insurance)));
+        String totalRent = String.format("Total rent: %s%n", CurrencyFormatter.getFormatedValue(rent));
+        String totalInsurance = String.format("Total insurance: %s%n", CurrencyFormatter.getFormatedValue(insurance));
+        String total = String.format("Total: %s%n", CurrencyFormatter.getFormatedValue(rent.add(insurance)));
 
         return totalRent + totalInsurance + total;
     }
@@ -81,9 +83,9 @@ public abstract class Invoice {
     public String earlyReturnDiscounts() {
         StringBuilder invoice = new StringBuilder();
 
-        invoice.append(String.format("Early return discount for rent: %s%n", Utils.getFormatedValue(getEarlyReturnRentDiscount())));
+        invoice.append(String.format("Early return discount for rent: %s%n", CurrencyFormatter.getFormatedValue(getEarlyReturnRentDiscount())));
         invoice.append(String.format("Early return discount for insurance: %s%n",
-                Utils.getFormatedValue(getInsuranceCalculator().calculateTotalCostPerDay().multiply(BigDecimal.valueOf(vehicleRental.getRentalDays() - rentDuration)))));
+                CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateTotalCostPerDay().multiply(BigDecimal.valueOf(vehicleRental.getRentalDays() - rentDuration)))));
         invoice.append(System.lineSeparator());
 
         return invoice.toString();
