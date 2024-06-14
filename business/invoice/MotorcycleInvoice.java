@@ -1,14 +1,17 @@
 package business.invoice;
 
-import business.insurance.InsuranceCalculator;
+import business.insurance.InsuranceAdditionCalculator;
 import business.rental.MotorcycleRental;
 import utils.CurrencyFormatter;
 
 import java.time.LocalDate;
 
 public class MotorcycleInvoice extends Invoice {
-    public MotorcycleInvoice(MotorcycleRental motorcycleRental, InsuranceCalculator insuranceCalculator, LocalDate returnDate) {
-        super(motorcycleRental, insuranceCalculator, returnDate);
+    private final InsuranceAdditionCalculator insuranceAdditionCalculator;
+
+    public MotorcycleInvoice(MotorcycleRental motorcycleRental, InsuranceAdditionCalculator insuranceAdditionCalculator, LocalDate returnDate) {
+        super(motorcycleRental, insuranceAdditionCalculator, returnDate);
+        this.insuranceAdditionCalculator = insuranceAdditionCalculator;
     }
 
     @Override
@@ -22,12 +25,12 @@ public class MotorcycleInvoice extends Invoice {
         invoice.append(super.getInvoice());
 
         if (getVehicleRental().getClient().getAge() < 25) {
-            invoice.append(String.format("Initial insurance per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateInitialCostPerDay())));
-            invoice.append(String.format("Insurance addition per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateAdditionPerDay())));
-            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateTotalCostPerDay())));
+            invoice.append(String.format("Initial insurance per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceAdditionCalculator.calculateInitialCostPerDay())));
+            invoice.append(String.format("Insurance addition per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceAdditionCalculator.calculateAdditionPerDay())));
+            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceAdditionCalculator.calculateTotalCostPerDay())));
 
         } else {
-            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateTotalCostPerDay())));
+            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceAdditionCalculator.calculateTotalCostPerDay())));
 
         }
         invoice.append(System.lineSeparator());

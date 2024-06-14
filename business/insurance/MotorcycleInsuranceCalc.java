@@ -5,7 +5,7 @@ import business.rental.MotorcycleRental;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class MotorcycleInsuranceCalc implements InsuranceCalculator {
+public class MotorcycleInsuranceCalc implements InsuranceAdditionCalculator {
     private static final BigDecimal MOTORCYCLE_INSURANCE_COST = BigDecimal.valueOf(0.0002);
     private static final BigDecimal MOTORCYCLE_INSURANCE_ADDITION_PERCENT = BigDecimal.valueOf(20);
 

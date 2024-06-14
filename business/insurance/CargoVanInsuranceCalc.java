@@ -5,7 +5,7 @@ import business.rental.CargoVanRental;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class CargoVanInsuranceCalc implements InsuranceCalculator {
+public class CargoVanInsuranceCalc implements InsuranceDiscountCalculator {
     private static final BigDecimal CARGO_VAN_INSURANCE_COST = BigDecimal.valueOf(0.0003);
     private static final BigDecimal CARGO_VAN_INSURANCE_DISCOUNT_PERCENT = BigDecimal.valueOf(15);
 

@@ -7,12 +7,4 @@ public interface InsuranceCalculator {
 
     BigDecimal calculateTotalCostPerDay();
 
-    default BigDecimal calculateAdditionPerDay() {
-        return null;
-    }
-
-    default BigDecimal calculateDiscountPerDay() {
-        return null;
-    }
-
 }

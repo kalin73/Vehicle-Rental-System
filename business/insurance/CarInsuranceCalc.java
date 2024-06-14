@@ -6,15 +6,15 @@ import model.vehicle.Car;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class CarInsuranceCalc implements InsuranceCalculator {
+public class CarInsuranceCalc implements InsuranceDiscountCalculator {
     private static final BigDecimal CAR_INSURANCE_COST = BigDecimal.valueOf(0.0001);
     private static final BigDecimal CAR_INSURANCE_DISCOUNT_PERCENT = BigDecimal.valueOf(10);
 
     private final Car car;
 
     public CarInsuranceCalc(CarRental rentalCar) {
-        this.car = (Car) rentalCar.getVehicle();
-
+        if (rentalCar.getVehicle() instanceof Car) this.car = (Car) rentalCar.getVehicle();
+        else throw new IllegalArgumentException();
     }
 
     @Override

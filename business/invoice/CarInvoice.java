@@ -1,6 +1,6 @@
 package business.invoice;
 
-import business.insurance.CarInsuranceCalc;
+import business.insurance.InsuranceDiscountCalculator;
 import business.rental.CarRental;
 import model.vehicle.Car;
 import utils.CurrencyFormatter;
@@ -9,10 +9,15 @@ import java.time.LocalDate;
 
 public class CarInvoice extends Invoice {
     private final Car car;
+    private final InsuranceDiscountCalculator insuranceDiscountCalculator;
 
-    public CarInvoice(CarRental carRental, CarInsuranceCalc carInsuranceCalc, LocalDate returnDate) {
+    public CarInvoice(CarRental carRental, InsuranceDiscountCalculator carInsuranceCalc, LocalDate returnDate) {
         super(carRental, carInsuranceCalc, returnDate);
-        this.car = (Car) carRental.getVehicle();
+
+        if (carRental.getVehicle() instanceof Car) this.car = (Car) carRental.getVehicle();
+        else throw new IllegalArgumentException();
+
+        this.insuranceDiscountCalculator = carInsuranceCalc;
     }
 
     @Override
@@ -25,7 +30,7 @@ public class CarInvoice extends Invoice {
 
         if (car.getSafetyRating() > 3 && car.getSafetyRating() <= 5) {
             invoice.append(String.format("Initial insurance per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateInitialCostPerDay())));
-            invoice.append(String.format("Insurance discount per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateDiscountPerDay())));
+            invoice.append(String.format("Insurance discount per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceDiscountCalculator.calculateDiscountPerDay())));
             invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateTotalCostPerDay())));
 
         } else {

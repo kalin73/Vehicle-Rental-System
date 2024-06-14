@@ -1,14 +1,17 @@
 package business.invoice;
 
-import business.insurance.CargoVanInsuranceCalc;
+import business.insurance.InsuranceDiscountCalculator;
 import business.rental.CargoVanRental;
 import utils.CurrencyFormatter;
 
 import java.time.LocalDate;
 
 public class CargoVanInvoice extends Invoice {
-    public CargoVanInvoice(CargoVanRental cargoVanRental, CargoVanInsuranceCalc cargoVanInsuranceCalc, LocalDate returnDate) {
+    private final InsuranceDiscountCalculator insuranceDiscountCalculator;
+
+    public CargoVanInvoice(CargoVanRental cargoVanRental, InsuranceDiscountCalculator cargoVanInsuranceCalc, LocalDate returnDate) {
         super(cargoVanRental, cargoVanInsuranceCalc, returnDate);
+        this.insuranceDiscountCalculator = cargoVanInsuranceCalc;
     }
 
     @Override
@@ -22,12 +25,12 @@ public class CargoVanInvoice extends Invoice {
         invoice.append(super.getInvoice());
 
         if (getVehicleRental().getClient().getDrivingExperience() > 5) {
-            invoice.append(String.format("Initial insurance per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateInitialCostPerDay())));
-            invoice.append(String.format("Insurance discount per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateDiscountPerDay())));
-            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateTotalCostPerDay())));
+            invoice.append(String.format("Initial insurance per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceDiscountCalculator.calculateInitialCostPerDay())));
+            invoice.append(String.format("Insurance discount per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceDiscountCalculator.calculateDiscountPerDay())));
+            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceDiscountCalculator.calculateTotalCostPerDay())));
 
         } else {
-            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(getInsuranceCalculator().calculateTotalCostPerDay())));
+            invoice.append(String.format("Insurance per day: %s%n", CurrencyFormatter.getFormatedValue(insuranceDiscountCalculator.calculateTotalCostPerDay())));
 
         }
         invoice.append(System.lineSeparator());
