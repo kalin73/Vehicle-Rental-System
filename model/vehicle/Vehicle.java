@@ -11,35 +11,41 @@ public abstract class Vehicle {
     }
 
     protected Vehicle(String brand, String model, BigDecimal value) {
-        this.brand = brand;
-        this.model = model;
-        this.value = value;
+        setBrand(brand);
+        setModel(model);
+        setValue(value);
     }
 
     public String getBrand() {
         return brand;
     }
 
-    public Vehicle setBrand(String brand) {
+    public void setBrand(String brand) {
+        if (brand == null || brand.isBlank()) {
+            throw new IllegalArgumentException("Brand cannot be null or blank");
+        }
         this.brand = brand;
-        return this;
     }
 
     public String getModel() {
         return model;
     }
 
-    public Vehicle setModel(String model) {
+    public void setModel(String model) {
+        if (model == null || model.isBlank()) {
+            throw new IllegalArgumentException("Model cannot be null or blank");
+        }
         this.model = model;
-        return this;
     }
 
     public BigDecimal getValue() {
         return value;
     }
 
-    public Vehicle setValue(BigDecimal value) {
+    public void setValue(BigDecimal value) {
+        if (value == null || value.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Value cannot be negative");
+        }
         this.value = value;
-        return this;
     }
 }

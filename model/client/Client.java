@@ -10,45 +10,57 @@ public class Client {
     }
 
     public Client(String firstName, String lastName, int age, int drivingExperience) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.drivingExperience = drivingExperience;
+        setFirstName(firstName);
+        setLastName(lastName);
+        setAge(age);
+        setDrivingExperience(drivingExperience);
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public Client setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
+        if (firstName == null || firstName.isBlank()) {
+            throw new IllegalArgumentException("First name cannot be blank");
+        }
         this.firstName = firstName;
-        return this;
+
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public Client setLastName(String lastName) {
+    public void setLastName(String lastName) {
+        if (lastName == null || lastName.isBlank()) {
+            throw new IllegalArgumentException("Last name cannot be blank");
+        }
         this.lastName = lastName;
-        return this;
+
     }
 
     public int getAge() {
         return age;
     }
 
-    public Client setAge(int age) {
+    public void setAge(int age) {
+        if (age < 16 || age > 100) {
+            throw new IllegalArgumentException("Age must be between 16 and 100");
+        }
         this.age = age;
-        return this;
+
     }
 
     public int getDrivingExperience() {
         return drivingExperience;
     }
 
-    public Client setDrivingExperience(int drivingExperience) {
+    public void setDrivingExperience(int drivingExperience) {
+        if (drivingExperience < 0 || drivingExperience > 84) {
+            throw new IllegalArgumentException("Driving experience must be between 0 and 84");
+        }
         this.drivingExperience = drivingExperience;
-        return this;
+
     }
 }
