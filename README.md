@@ -2,7 +2,7 @@
 For the development of this application are followed "SOLID" principles. Functionality is separated between different packages and classes responsible for every vehicle type. New functions and vehicle types can be added without modifying the existing classes.
 
 # Project structure
-The project contains 3 main packages and **"Main"** class:
+The project contains 3 main packages **(business, model, utils)** and **"Main"** class:
 - [business](https://github.com/kalin73/Vehicle-Rental-System/tree/main/business) : contains the business logic for calculations and output construction 
 - [model](https://github.com/kalin73/Vehicle-Rental-System/tree/main/model) : contains information for the entities of this application (vehicles and client) 
 - [utils](https://github.com/kalin73/Vehicle-Rental-System/tree/main/utils) : contains reusable utilities
