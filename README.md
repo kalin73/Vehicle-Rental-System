@@ -18,4 +18,4 @@ Package **model** has 2 more packages **(vehicle and client)**
 
 Package **utils** has 1 class **(CurrencyFormatter)** which is responsible for formatting currencies in the application.
 
-The **"Main"** class is used for generation of the input and running the application.
+The **"Main"** class is used for generating the input and running the application.
